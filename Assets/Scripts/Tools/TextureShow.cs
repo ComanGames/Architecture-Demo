@@ -5,21 +5,23 @@ namespace Tools
     public class TextureShow : BaseAnimation
     {
         public Material OurMaterial;
-        [Range(0,1)]
+        [Range(0, 1)]
         public float AlphaMax;
         [Range(0, 1)]
         public float AlphaMin;
         private Color _realColor;
         private bool _show = true;
 
-        public void Start()
+        public override void Start()
         {
+            base.Start();
             _realColor = OurMaterial.color;
         }
 
-
-        public void Update()
+        public override void Animate()
         {
+            base.Animate();
+
             float step = Curve.Evaluate((_realColor.a)) * Speed / Time.deltaTime;
 
 
@@ -45,9 +47,6 @@ namespace Tools
 
 
             OurMaterial.color  =_realColor;
-
         }
-
-
     }
 }

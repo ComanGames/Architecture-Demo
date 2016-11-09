@@ -66,46 +66,12 @@ namespace Vuforia
         #region PRIVATE_METHODS
 
 
-        private void OnTrackingFound()
-        {
-            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
-            Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
-
-            // Enable rendering:
-            foreach (Renderer component in rendererComponents)
-            {
-                component.enabled = true;
-            }
-
-            // Enable colliders:
-            foreach (Collider component in colliderComponents)
-            {
-                component.enabled = true;
-            }
-
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-        }
+        private void OnTrackingFound() {
+            Main.StartTracking(); }
 
 
-        private void OnTrackingLost()
-        {
-            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
-            Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
-
-            // Disable rendering:
-            foreach (Renderer component in rendererComponents)
-            {
-                component.enabled = false;
-            }
-
-            // Disable colliders:
-            foreach (Collider component in colliderComponents)
-            {
-                component.enabled = false;
-            }
-
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
-        }
+        private void OnTrackingLost() {
+            Main.StopTracking(); }
 
         #endregion // PRIVATE_METHODS
     }
