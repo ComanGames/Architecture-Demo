@@ -9,10 +9,11 @@ public class Main : MonoBehaviour
     public Transform Stages;
     private IStage[] _stages;
     private static Main _instance;
+    private static bool IsFirst = true;
     //public Variables
     public void Start()
     {
-        Main._instance = this;
+        _instance = this;
         HideStages();
         GetStages();
     }
@@ -29,16 +30,40 @@ public class Main : MonoBehaviour
         _stages = stages.ToArray();
     }
 
-    private void HideStages() {
-       Stages.gameObject.SetActive(false); }
+    private void HideStages()
+    {
+        Renderer[] renderers = Stages.GetComponentsInChildren<Renderer>();
+        foreach (Renderer render in renderers)
+            render.enabled = false;
+    }
 
     private void ShowStages() {
-       Stages.gameObject.SetActive(true); }
+        Renderer[] renderers = Stages.GetComponentsInChildren<Renderer>();
+        foreach (Renderer render in renderers)
+            render.enabled = true;
 
-    public static void StartTracking() {
-        Main._instance.ShowStages(); }
+    }
+
+    private void StartFirst()
+    {
+        _stages[0].StartStage();
+    }
+
+    public static void StartTracking()
+    {
+            _instance.ShowStages();
+        if (IsFirst)
+        {
+            _instance.StartFirst();
+            IsFirst = false;
+        }
+
+    }
+
     public static void StopTracking() {
-        Main._instance.HideStages(); }
+        if(!IsFirst)
+        _instance.HideStages();
+    }
 
 
 }

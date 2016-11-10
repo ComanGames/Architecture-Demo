@@ -18,10 +18,16 @@ namespace Tools
             _realColor = OurMaterial.color;
         }
 
+        public override void StartAnimation()
+        {
+            base.StartAnimation();
+            GetComponent<MeshRenderer>().material = OurMaterial;
+
+        }
+
+
         public override void Animate()
         {
-            base.Animate();
-
             float step = Curve.Evaluate((_realColor.a)) * Speed / Time.deltaTime;
 
 
@@ -43,10 +49,10 @@ namespace Tools
                     _realColor.a -= step;
 
             }
+            OurMaterial.color = _realColor;
 
 
 
-            OurMaterial.color  =_realColor;
         }
     }
 }
